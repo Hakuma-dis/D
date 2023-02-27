@@ -14,7 +14,7 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN yarn
+RUN npm install
 
 RUN npm install -g pm2
 
