@@ -9,9 +9,9 @@ RUN apt-get update && \
   imagemagick \
   graphicsmagick \
   webp \
-  mc \
+  mc -y && \
   rm -rf /bin/sh/*
-  
+
 COPY package.json .
 
 RUN npm install -g npm@8.1.3
@@ -22,4 +22,4 @@ COPY . .
 
 RUN pm2 save
 
-CMD ["npm", "start"]`
+CMD ["pm2-runtime", "index.js"]`
