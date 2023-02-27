@@ -14,7 +14,7 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install -g npm@8.1.3
+RUN yarn
 
 RUN npm install -g pm2
 
