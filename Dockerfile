@@ -1,21 +1,14 @@
-FROM node:16.10.0-buster
+FROM fedora:37
 
-RUN apt-get update && \
-  apt-get install -y \
-  neofetch \
-  chromium \
-  ffmpeg \
-  wget \
-  imagemagick \
-  graphicsmagick \
-  webp \
-  mc -y && \
-  rm -rf /bin/sh/*
+RUN sudo dnf -y update &&\
+    sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm &&\
+    sudo dnf install -y git ffmpeg ImageMagick nodejs libwebp yarnpkg &&\
+    sudo dnf clean all -y
 
-COPY package.json .
+WORKDIR /nezuko
 
-COPY . .
+COPY . /nezuko
 
-RUN yarn install
+RUN yarn
 
-CMD ["pm2-runtime", "index.js"]`
+CMD ["yarn", "start"]
